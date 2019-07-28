@@ -1,26 +1,47 @@
-# Wild Rydes Serverless Workshops
+## Serverless Web Application Workshop
 
-This repository contains a collection of workshops and other hands on content that will guide you through building various serverless applications using AWS Lambda, Amazon API Gateway, Amazon DynamoDB, AWS Step Functions, Amazon Kinesis, and other services.
+In this workshop you'll deploy a simple web application that enables users to request unicorn rides from the [Wild Rydes][wildrydes] fleet. The application will present users with an HTML based user interface for indicating the location where they would like to be picked up and will interface on the backend with a RESTful web service to submit the request and dispatch a nearby unicorn. The application will also provide facilities for users to register with the service and log in before requesting rides.
 
-# Workshops
+The application architecture uses [AWS Lambda][lambda], [Amazon API Gateway][api-gw], [Amazon S3][s3], [Amazon DynamoDB][dynamodb], [Amazon Cognito][cognito], and [AWS Amplify Console][amplify-console]. Amplify Console hosts static web resources including HTML, CSS, JavaScript, and image files which are loaded in the user's browser via S3. JavaScript executed in the browser sends and receives data from a public backend API built using Lambda and API Gateway. Amazon Cognito provides user management and authentication functions to secure the backend API. Finally, DynamoDB provides a  persistence layer where data can be stored by the API's Lambda function.
 
-- [**Web Application**](WebApplication) - This workshop shows you how to build a dynamic, serverless web application. You'll learn how to host static web resources with Amazon S3, how to use Amazon Cognito to manage users and authentication, and how to build a RESTful API for backend processing using Amazon API Gateway, AWS Lambda and Amazon DynamoDB.
+See the diagram below for a depiction of the complete architecture.
 
-- [**Auth**](Auth) - This workshop shows you how to build in security at multiple layers of your application, starting with sign-up and sign-in functionality for your application, how to secure serverless microservices, and how to leverage AWS's identity and access management (IAM) to provide fine-grained access control to your application's users. You'll learn how AWS Amplify integrates with Amazon Cognito, Amazon API Gateway, AWS Lambda, and IAM to provide an integrated authentication and authorization experience.
+![Wild Rydes Web Application Architecture](images/wildrydes-complete-architecture.png)
 
-- [**Data Processing**](https://dataprocessing.wildrydes.com) - This workshop demonstrates how to collect, store, and process data with a serverless application. In this workshop you'll learn how to build real-time streaming applications using Amazon Kinesis Data Streams and Amazon Kinesis Data Analytics, how to archive data streams using Amazon Kinesis Data Firehose and Amazon S3, and how to run ad-hoc queries on those files using Amazon Athena.
+### Modules
 
-- [**DevOps**](DevOps) - This workshop shows you how to use the [Serverless Application Model (SAM)](https://github.com/awslabs/serverless-application-model) to build a serverless application using Amazon API Gateway, AWS Lambda, and Amazon DynamoDB. You'll learn how to use SAM from your workstation to release updates to your application, how to build a CI/CD pipeline for your serverless application using AWS CodePipeline and AWS CodeBuild, and how to enhance your pipeline to manage multiple environments for your application.
+This workshop is divided into four modules. Each module describes a scenario of
+what we're going to build and step-by-step directions to help you implement the
+architecture and verify your work.
 
-- [**Image Processing**](ImageProcessing) - This module shows you how to build a serverless image processing application using workflow orchestration in the backend. You'll learn the basics of using AWS Step Functions to orchestrate multiple AWS Lambda functions while leveraging the deep learning-based facial recognition features of Amazon Rekogntion.
+| Module | Description |
+| ---------------- | -------------------------------------------------------- |
+| [Static Web hosting][static-web-hosting] | Deploy the static website using AWS Amplify Console by first creating a git repository (in either CodeCommit or GitHub) and then pushing the site code. |
+| [User Management][user-management] | Configure user management for the website using Amazon Cognito. |
+| [Serverless Backend][serverless-backend] | Create an AWS Lambda function that will persist data to an Amazon DynamoDB table. |
+| [RESTful APIs][restful-apis] | Expose the Lambda function via an Amazon API Gateway as a RESTful API that the static site can call. |
 
-- [**Multi Region**](MultiRegion) - This workshop shows you how to build a serverless ticketing system that is replicated across two regions and provides automatic failover in the event of a disaster. You will learn the basics of deploying AWS Lambda functions, exposing them via API Gateway, and configuring replication using Route53 and DynamoDB streams.
+:warning: These modules are intended to be executed linearly.
 
-- [**Security**](https://github.com/aws-samples/aws-serverless-security-workshop) - This workshop shows you techniques to secure a serverless application built with AWS Lambda, Amazon API Gateway and RDS Aurora. We will cover AWS services and features you can leverage to improve the security of a serverless applications in 5 domains: identity & access management, infrastructure, data, code, and logging & monitoring.
+After you have completed the workshop you can delete all of the resources that were created by following the [cleanup guide][cleanup].
 
+### Next
 
-# Third Party Workshops
+:white_check_mark: Review and follow the directions in the [setup guide][setup],
+wherein you'll configure your AWS Cloud9 IDE and setup pre-requisites like an
+AWS Account.
 
-The following workshops are created and maintained by third parties and explore a variety of other topics and tools related to serverless development on AWS.
-
-- [**HERE Geocoding and Routing Extensions**](https://github.com/heremaps/devrel-workshops/tree/master/aws-serverless) - These extensions to the [**Web Application**](WebApplication) and [**Data Processing**](https://dataprocessing.wildrydes.com) workshops walk through how to enhance the base applications with geocoding and advanced routing features. You'll see how to launch applications from the AWS Serverless Application Repository and integrate these components into the existing architectures. You'll need to complete the primary Web Application or Data Processing workshop from this repository before starting the extensions.
+[wildrydes]: http://wildrydes.com/
+[unicorns]: http://www.wildrydes.com/unicorns.html
+[amplify-console]: https://aws.amazon.com/amplify/console/
+[cognito]: https://aws.amazon.com/cognito/
+[lambda]: https://aws.amazon.com/lambda/
+[api-gw]: https://aws.amazon.com/api-gateway/
+[s3]: https://aws.amazon.com/s3/
+[dynamodb]: https://aws.amazon.com/dynamodb/
+[setup]: 0_Setup/
+[static-web-hosting]: 1_StaticWebHosting/
+[user-management]: 2_UserManagement/
+[serverless-backend]: 3_ServerlessBackend/
+[restful-apis]: 4_RESTfulAPIs/
+[cleanup]: 9_CleanUp/
